@@ -65,7 +65,7 @@ class Top(commands.Cog):
             Generator.top(data)
             return True
 
-    @cog_ext.cog_slash(name="top", guild_ids=[658602051143598081],
+    @cog_ext.cog_slash(name="top",
                        description="Affiche les 5 meilleurs membres du serveur")
     async def s_top(self, ctx):
         await ctx.defer()

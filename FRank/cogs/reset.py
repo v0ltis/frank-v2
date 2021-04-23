@@ -9,7 +9,7 @@ class Reset(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @cog_ext.cog_slash(name="reset", guild_ids=[658602051143598081],
+    @cog_ext.cog_slash(name="reset",
                        description="Reinitalise tout les utilisateurs",
                        options=[create_option(
                            name="Confirmation",

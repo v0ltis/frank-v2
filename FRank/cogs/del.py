@@ -10,7 +10,7 @@ class Delete(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @cog_ext.cog_slash(name="del", guild_ids=[658602051143598081],
+    @cog_ext.cog_slash(name="del",
                        description="Réinitialisez une personne",
                        options=[create_option(
                            name="Utilisateur",

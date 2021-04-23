@@ -11,7 +11,6 @@ class Levelup:
         try:
             channel = bot.get_channel(channel)
             await channel.send(":tada: Bravo <@{0}>, tu es passé niveau {1} :tada: !".format(user, level))
-
             g = channel.guild
             data = await my.sql.Connexion().list_roles(g.id)
 
@@ -28,7 +27,8 @@ class Levelup:
                             try:
                                 await user.add_roles(role)
 
-                            except (discord.Forbidden, discord.HTTPException):
+                            except (discord.Forbidden, discord.HTTPException) as e:
+                                print(e)
                                 pass
 
         except discord.Forbidden:

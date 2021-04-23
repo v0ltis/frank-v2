@@ -10,7 +10,7 @@ class Add(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @cog_ext.cog_slash(name="add", guild_ids=[658602051143598081],
+    @cog_ext.cog_slash(name="add",
                        description="Ajoutez de l'xp ou des niveaux !",
                        options=[
                            create_option(

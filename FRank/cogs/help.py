@@ -2,18 +2,18 @@ import discord
 from discord.ext import commands
 from discord_slash import cog_ext, SlashContext
 
-help = discord.Embed(color=0xb42cfc)
-help.add_field(name="@FRank help", value="Affiche l'aide", inline=False)
-help.add_field(name="@FRank", value="Affiche vos statistiques", inline=False)
-help.add_field(name="@FRank top", value="Affiche les 5 personnes les plus hautes dans le classement du serveur",
-               inline=False)
-help.add_field(name="Il manque des commandes ?",
-               value="FRank utilise désomrais les slashs commands. Cliquez [ici](https://discord.com/oauth2/authorize?client_id=738341837395197952&permissions=0&scope=bot%20applications.commands) pour les activer sur votre serveur, et debloquer toutes les commandes !")
-help.add_field(name="Ajoutez FRank à votre serveur !",
-               value="[en cliquant ici](https://discord.com/oauth2/authorize?client_id=738341837395197952&scope=bot%20applications.commands&permissions=268749888)",
-               inline=False)
-help.set_footer(text="* Nécésite la permission \"Administrateur\" sur le serveur",
-                icon_url="https://cdn.discordapp.com/avatars/738341837395197952/e66f2b432f737429ab3e40c01a6ff7c9.png?size=256")
+chelp = discord.Embed(color=0xb42cfc)
+chelp.add_field(name="@FRank help", value="Affiche l'aide", inline=False)
+chelp.add_field(name="@FRank", value="Affiche vos statistiques", inline=False)
+chelp.add_field(name="@FRank top", value="Affiche les 5 personnes les plus hautes dans le classement du serveur",
+                inline=False)
+chelp.add_field(name="Il manque des commandes ?",
+                value="FRank utilise désomrais les slashs commands. Cliquez [ici](https://discord.com/oauth2/authorize?client_id=738341837395197952&permissions=0&scope=bot%20applications.commands) pour les activer sur votre serveur, et debloquer toutes les commandes !")
+chelp.add_field(name="Ajoutez FRank à votre serveur !",
+                value="[en cliquant ici](https://discord.com/oauth2/authorize?client_id=738341837395197952&scope=bot%20applications.commands&permissions=268749888)",
+                inline=False)
+chelp.set_footer(text="* Nécésite la permission \"Administrateur\" sur le serveur",
+                 icon_url="https://cdn.discordapp.com/avatars/738341837395197952/e66f2b432f737429ab3e40c01a6ff7c9.png?size=256")
 
 shelp = discord.Embed(color=0xb42cfc)
 shelp.add_field(name="/help", value="Affiche l'aide", inline=False)
@@ -35,18 +35,18 @@ shelp.set_footer(text="* Nécésite la permission \"Administrateur\" sur le serv
                  icon_url="https://cdn.discordapp.com/avatars/738341837395197952/e66f2b432f737429ab3e40c01a6ff7c9.png?size=256")
 
 
-class cmd(commands.Cog):
+class Cmd(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @cog_ext.cog_slash(name="help", guild_ids=[658602051143598081], description="Affiche les commandes")
+    @cog_ext.cog_slash(name="help", description="Affiche les commandes")
     async def shelp(self, ctx: SlashContext):
         await ctx.send(embeds=[shelp])
 
     @commands.command(name="help", aliases=[''])
     async def chelp(self, ctx: commands.context):
-        await ctx.send(embed=help)
+        await ctx.send(embed=chelp)
 
 
 def setup(bot):
-    bot.add_cog(cmd(bot))
+    bot.add_cog(Cmd(bot))

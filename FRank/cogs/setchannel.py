@@ -10,7 +10,7 @@ class Schannel(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @cog_ext.cog_subcommand(base="option", name="annonce", guild_ids=[658602051143598081],
+    @cog_ext.cog_subcommand(base="option", name="annonce",
                             description="Selectionez où seront annoncés les levels-ups !",
                             options=[create_option(
                                 name="Salon",
