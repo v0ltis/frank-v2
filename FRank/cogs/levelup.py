@@ -28,8 +28,7 @@ class Levelup:
                             try:
                                 await user.add_roles(role)
 
-                            except (discord.Forbidden, discord.HTTPException) as e:
-                                print(e)
+                            except (discord.Forbidden, discord.HTTPException):
                                 pass
 
         except discord.Forbidden:
