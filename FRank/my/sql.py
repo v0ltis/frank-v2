@@ -35,16 +35,7 @@ class Connexion:
         self.db.commit()
 
     async def add_xp(self, user: int, guild: int, bot, mchannel):
-        req = "SELECT * FROM users WHERE guild = '{}'".format(guild)
-        self.cursor.execute(req)
-        data = self.cursor.fetchall()
-
-        if data == [] or str(user) not in json.loads(data[0][1]).keys():
-            await self.add_user(guild, user)
-            self.cursor.execute(req)
-            data = self.cursor.fetchall()
-
-        levels = json.loads(data[0][1])
+        levels = await self.get_user(user, guild, only=False)
 
         levels[str(user)]['xp'] += random.randint(2, 8)
         level = levels[str(user)]['level']
@@ -53,7 +44,7 @@ class Connexion:
 
         if count <= levels[str(user)]['xp']:
             levels[str(user)]['level'] += 1
-            channel = data[0][2]
+            channel = levels[0][2]
 
             if channel is None:
                 channel = mchannel
@@ -68,7 +59,7 @@ class Connexion:
 
         self.db.commit()
 
-    async def get_user(self, user, guild):
+    async def get_user(self, user, guild, only=True):
         req = "SELECT * FROM users WHERE guild = '{}'".format(guild)
 
         self.cursor.execute(req)
@@ -81,7 +72,10 @@ class Connexion:
 
         json_data = json.loads(data[0][1])
 
-        return json_data[str(user)]
+        if only:
+            return json_data[str(user)]
+
+        return json_data
 
     async def get(self, guild):
         req = "SELECT * FROM users WHERE guild = {}".format(guild)
@@ -99,16 +93,7 @@ class Connexion:
         self.db.commit()
 
     async def update(self, guild, val, quant, user):
-        req = "SELECT * FROM users WHERE guild = '{}'".format(guild)
-        self.cursor.execute(req)
-        data = self.cursor.fetchall()
-
-        if data == [] or str(user) not in json.loads(data[0][1]).keys():
-            await self.add_user(guild, user)
-            self.cursor.execute(req)
-            data = self.cursor.fetchall()
-
-        levels = json.loads(data[0][1])
+        levels = await self.get_user(user, guild, only=False)
 
         levels[str(user)][val] += quant
 
