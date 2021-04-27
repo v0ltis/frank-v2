@@ -9,7 +9,7 @@ class Levelup:
     @staticmethod
     async def announce(bot, channel, user: int, level):
         try:
-            channel = bot.get_channel(channel)
+            channel = bot.get_channel(int(channel))
             await channel.send(":tada: Bravo <@{0}>, tu es passé niveau {1} :tada: !".format(user, level))
             g = channel.guild
             data = await my.sql.Connexion().list_roles(g.id)
