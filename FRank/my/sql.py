@@ -9,7 +9,7 @@ import cogs.levelup
 class Connexion:
     def __init__(self):
         self.db = mysql.connector.connect(user='frank', password='frank',
-                                          host='frank.frank',
+                                          host='frank',
                                           database='frank')
 
         self.cursor = self.db.cursor(buffered=True)
@@ -35,29 +35,39 @@ class Connexion:
         self.db.commit()
 
     async def add_xp(self, user: int, guild: int, bot, mchannel):
-        levels = await self.get_user(user, guild, only=False)
+        data = await self.get(guild)
 
-        levels[str(user)]['xp'] += random.randint(2, 8)
+        levelup = False
+
+        if data == [] or str(user) not in json.loads(data[1]).keys():
+            await self.add_user(guild, user)
+            data = await self.get(guild)
+
+        levels = json.loads(data[1])
+
+        levels[str(user)]['xp'] += random.randint(3, 10)
         level = levels[str(user)]['level']
 
         count = round((((level ** 2) + 50 + (level * 10)) * 2.5))
 
         if count <= levels[str(user)]['xp']:
             levels[str(user)]['level'] += 1
-            channel = levels[0][2]
+
+            levels[str(user)]['xp'] -= count
+            levelup = True
+
+        save = "UPDATE users set data = '{0}' where guild = {1}".format(json.dumps(levels), guild)
+
+        self.cursor.execute(save)
+        self.db.commit()
+
+        if levelup:
+            channel = data[2]
 
             if channel is None:
                 channel = mchannel
 
             await cogs.levelup.Levelup.announce(bot, channel, user, levels[str(user)]['level'])
-
-            levels[str(user)]['xp'] -= count
-
-        save = "UPDATE users set data = '{0}' where guild = {1}".format(json.dumps(levels), guild)
-
-        self.cursor.execute(save)
-
-        self.db.commit()
 
     async def get_user(self, user, guild, only=True):
         req = "SELECT * FROM users WHERE guild = '{}'".format(guild)
