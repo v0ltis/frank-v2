@@ -10,6 +10,8 @@ class Levelup:
     async def announce(bot, channel, user: int, level):
         try:
             channel = bot.get_channel(int(channel))
+            if channel is None:
+                raise Exception
             await channel.send(":tada: Bravo <@{0}>, tu es passé niveau {1} :tada: !".format(user, level))
             g = channel.guild
             data = await my.sql.Connexion().list_roles(g.id)
@@ -27,9 +29,8 @@ class Levelup:
                             try:
                                 await user.add_roles(role)
 
-                            except (discord.Forbidden, discord.HTTPException) as e:
-                                print(e)
+                            except (discord.Forbidden, discord.HTTPException):
                                 pass
 
-        except discord.Forbidden:
+        except (discord.Forbidden, Exception):
             pass

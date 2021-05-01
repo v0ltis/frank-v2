@@ -35,6 +35,7 @@ class Top(commands.Cog):
             for x in range(5):
                 try:
                     user = await ctx.guild.fetch_member(int(users[x][0]))
+
                     db_user = users[x]
 
                     reqxp = round((((db_user[1] ** 2) + 50 + (db_user[1] * 10)) * 2.5))

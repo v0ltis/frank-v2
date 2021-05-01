@@ -12,7 +12,7 @@ class Rank(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @cog_ext.cog_subcommand(base="roles", name="ajouter",
+    @cog_ext.cog_subcommand(base="option", subcommand_group="roles", name="ajouter",
                             description="Ajoutez un role donné en fonction du niveau",
                             options=[create_option(
                                 name="Role",
@@ -37,7 +37,7 @@ class Rank(commands.Cog):
                 "{0} sera désormais donné quand quelqu'un depasse le niveau {1} !".format(role.mention, niveau),
                 allowed_mentions=discord.AllowedMentions().none())
 
-    @cog_ext.cog_subcommand(base="roles", name="supprimer",
+    @cog_ext.cog_subcommand(base="option", subcommand_group="roles", name="supprimer",
                             description="Ajoutez un role donné en fonction du niveau",
                             options=[create_option(
                                 name="Role",
@@ -58,7 +58,7 @@ class Rank(commands.Cog):
             else:
                 await ctx.send("Ce role n'est pas donné lors de levels-up, impossible de le supprimer.")
 
-    @cog_ext.cog_subcommand(base="roles", name="liste",
+    @cog_ext.cog_subcommand(base="option", subcommand_group="roles", subcommand_group_description="Modifiez les paramètres des roles", name="liste",
                             description="Affiche les roles donnés en fonction des niveaux")
     async def get_roles(self, ctx):
         await ctx.defer(True)

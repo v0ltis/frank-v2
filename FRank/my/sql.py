@@ -20,7 +20,7 @@ class Connexion:
         request = self.cursor.fetchall()
 
         if not request:
-            insert = "insert into users VALUES ('{0}', '{{}}', null)".format(guild)
+            insert = "insert into users VALUES ('{0}', '{{}}', null, 0)".format(guild)
             self.cursor.execute(insert)
             self.db.commit()
             data = {}
@@ -34,7 +34,7 @@ class Connexion:
         self.cursor.execute(update)
         self.db.commit()
 
-    async def add_xp(self, user: int, guild: int, bot, mchannel):
+    async def add_xp(self, user: int, guild: int, bot, mchannel, voice=False):
         data = await self.get(guild)
 
         levelup = False
@@ -45,7 +45,10 @@ class Connexion:
 
         levels = json.loads(data[1])
 
-        levels[str(user)]['xp'] += random.randint(3, 10)
+        if not voice:
+            levels[str(user)]['xp'] += random.randint(3, 10)
+        else:
+            levels[str(user)]['xp'] += random.randint(1, 3)
         level = levels[str(user)]['level']
 
         count = round((((level ** 2) + 50 + (level * 10)) * 2.5))
@@ -91,7 +94,19 @@ class Connexion:
         req = "SELECT * FROM users WHERE guild = {}".format(guild)
 
         self.cursor.execute(req)
-        return self.cursor.fetchall()[0]
+
+        data = self.cursor.fetchall()
+
+        if len(data) == 0:
+            insert = "insert into users VALUES ('{0}', '{{}}', null, 0)".format(guild)
+            self.cursor.execute(insert)
+            self.db.commit()
+
+            self.cursor.execute(req)
+
+            data = self.cursor.fetchall()
+
+        return data[0]
 
     async def setchannel(self, guild, channel):
         if channel is not None:
@@ -181,6 +196,14 @@ class Connexion:
 
     async def reset(self, guild):
         req = "UPDATE users set data = '{{}}' where guild = {0}".format(guild)
+
+        self.cursor.execute(req)
+
+        self.db.commit()
+
+    async def set_type(self, num: int, guild: int):
+        # noinspection SqlResolve
+        req = "UPDATE users set type = {0} where guild = {1}".format(num, guild)
 
         self.cursor.execute(req)
 
