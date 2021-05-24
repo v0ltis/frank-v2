@@ -11,7 +11,7 @@ Argument|Description|Exemple d'utilsation|Rendu
 `old_level`|l'ancien niveau de l'utilisateur| `Je crois bien que quelqu'un a dépassé le niveau {old_level} 👀`|Je crois bien que quelqu'un a dépassé le niveau 57 👀
 `channelName`|nom du salon (vocal ou textuel) où l'xp a été gagné|`Quelqu'un a monté d'un niveau dans le salon {channel_name} !`| Quelqu'un a monté d'un niveau dans le salon blagues-vaseues !
 `channelMention`| mention du salon (vocal ou textuel)  où l'xp a été gagné|`Une personne a tellement spammé {channelMention} qu'elle a gagné un niveau`| Une personne a tellement spammé #memes qu'elle a gagné un niveau
-`xp`| Xp nécéssaire pour passer au prochain niveau|`Il faudra {xp} à quelqu'un pour passer au prochain niveau`|Il faudra 888 à quelqu'un pour passer au prochain niveau
+`xp`| Xp nécéssaire pour passer au prochain niveau|`Il faudra {xp} xp à quelqu'un pour passer au prochain niveau`|Il faudra 888 xp à quelqu'un pour passer au prochain niveau
 
 /!\ inserrer un texte entre `{}` non présent dans la liste ci-dessus entrainera une erreur. Voici comment régler ce soucis:
 
