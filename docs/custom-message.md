@@ -21,8 +21,8 @@ Argument|Description|Exemple d'utilsation|Rendu
 
 ### Exemples d'utilisation
 
-"Bravo à {mention}, tu viens de passer niveau {level} dans {channelMention}, il lui faudra {xp} pour passer au prochain niveau !"
-> Bravo à @FRank#7228, tu viens de passer niveau 60 dans #blagues-tres-vaseues, il lui faudra 83 pour passer au prochain niveau !
+"Bravo à {mention}, tu viens de passer niveau {level} dans {channelMention}, il lui faudra {xp}xp pour passer au prochain niveau {{incroyable}}!"
+> Bravo à @FRank#7228, tu viens de passer niveau 60 dans #blagues-tres-vaseues, il lui faudra 83xp pour passer au prochain niveau {incroyable}!
 
 
 Note: D'autres arguments pourronts faire leur apparition à tout moment !
