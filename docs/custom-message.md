@@ -15,7 +15,7 @@ Argument|Description|Exemple d'utilsation|Rendu
 
 /!\ inserrer un texte entre `{}` non présent dans la liste ci-dessus entrainera une erreur. Voici comment régler ce soucis:
 
-`Bla bla bla {bla_bla}` affichera une erreure
+`Bla bla bla {bla_bla}` affichera une erreur
 
 `Bla bla bla {{bla_bla}}` affichera "Bla bla bla {bla_bla}"
 
